@@ -1,10 +1,12 @@
-import Router from "../Router";
+import Router from "./Router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 
 import { createGlobalStyle } from "styled-components";
-import { darkTheme, lightTheme } from "./theme";
+
+import { darkTheme, lightTheme } from "./styles/theme";
+
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./routes/atoms";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Coin from './src/routes/Coin';
-import Coins from './src/routes/Coins';
+import Coin from './routes/Coin';
+import CoinsList from './routes/CoinsList';
 
 
 interface IRouterProps {
@@ -16,7 +16,7 @@ function Router({}: IRouterProps) {
                     <Coin />
                 </Route>
                 <Route path="/">
-                    <Coins />
+                    <CoinsList />
                 </Route>
                 
             </Switch>
