@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
 
 interface PageTitleProps {
-    text?: string;
+    title?: string;
 }
 
-const BrowserTitle = ({ text }: PageTitleProps) => {
+const BrowserTitle = ({ title }: PageTitleProps) => {
     return (
         <Helmet>
-            <title>{text}</title>
+            <title>{title}</title>
         </Helmet>
     );
 };

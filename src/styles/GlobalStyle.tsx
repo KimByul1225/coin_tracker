@@ -55,9 +55,12 @@ const GlobalStyle = createGlobalStyle`
     body{
         font-weight: 300;
         font-family: 'Noto Sans KR', sans-serif;  
-        background-color: ${props => props.theme.bgColor};
-        color: ${props => props.theme.textColor};
+        /* background-color: ${props => props.theme.bgColor};
+        color: ${props => props.theme.textColor}; */
         line-height: 1.2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     a{
         text-decoration: none;
