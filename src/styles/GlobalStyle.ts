@@ -1,4 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import backgroundImg from "../images/img/main_bg.jpg";
+
+
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
@@ -55,12 +58,13 @@ const GlobalStyle = createGlobalStyle`
     body{
         font-weight: 300;
         font-family: 'Noto Sans KR', sans-serif;  
-        /* background-color: ${props => props.theme.bgColor};
-        color: ${props => props.theme.textColor}; */
         line-height: 1.2;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        background: url(${backgroundImg}) center no-repeat;
+        background-size: cover;
     }
     a{
         text-decoration: none;
@@ -69,3 +73,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
+
+
+// background-color: ${props => props.theme.bgColor};
+// color: ${ props => props.theme.textColor };

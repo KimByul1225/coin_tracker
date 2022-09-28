@@ -1,8 +1,7 @@
 import Router from "./Router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
-
+import ToggleButton from "./components/ToggleButton";
 import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 
@@ -11,15 +10,15 @@ import { isDarkAtom } from "./atoms";
 
 
 function App() {
-  const isDark = useRecoilValue(isDarkAtom)
+  const isDark = useRecoilValue(isDarkAtom);
 
+  
   return (
     <>
+      <GlobalStyle/>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <GlobalStyle/>
-          <HelmetProvider>
-            <Router />
-          </HelmetProvider>
+        <ToggleButton/>
+        <Router />
         <ReactQueryDevtools initialIsOpen={true}/>
       </ThemeProvider>
     </>
@@ -27,3 +26,4 @@ function App() {
 }
 
 export default App;
+
