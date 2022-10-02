@@ -1,9 +1,55 @@
-import React from 'react'
-import styled from 'styled-components'
-import BrowserTitle from '../components/BrowserTitle'
+import { useQuery } from "react-query";
+import { useEffect, useCallback, useState } from 'react';
+
+
+import { handlefetchCoins } from "../api";
+
+
+
+
+import styled from 'styled-components';
+import BrowserTitle from '../components/BrowserTitle';
+import Row from '../components/Row';
+
+
 
 
 export default function CoinsList() {
+    const [page, setPage] = useState(1);
+    const [allData, setAllData] = useState<TickerInterface[]>([]);
+
+
+    const { isLoading: allTickersLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
+
+
+    const handleInfiniteScroll = useCallback(async () => {
+        const { offsetHeight, scrollTop } = document.documentElement;
+        const innerHeight = window.innerHeight;
+        if (offsetHeight === innerHeight + scrollTop) {
+        setPage((prevPage) => prevPage + 1);
+        }
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll);
+    }, [handleInfiniteScroll]);
+
+    useEffect(() => {
+        if (allTickersData) {
+        setAllData((prev) => {
+            const result = [...prev, ...allTickersData];
+            return result;
+        });
+        }
+    }, [allTickersData]);
+
+    useEffect(() => {
+        refetchAllTickers();
+    }, [page, refetchAllTickers]);
+
+
+
     return (
         <Container>
             <BrowserTitle title="Coin Tracker"/>
@@ -22,7 +68,20 @@ export default function CoinsList() {
                             Price / Change
                         </th>
                     </TableHeader>
-
+                    <TableBody>
+                        <Row
+                            key={`${coin.id}${index}`}
+                            id={coin.id}
+                            rank={coin.rank}
+                            symbol={coin.symbol}
+                            name={coin.name}
+                            price={coin.quotes.USD.price}
+                            priceChange={coin.quotes.USD.percent_change_24h}
+                            volume={coin.quotes.USD.volume_24h}
+                            volumeChange={coin.quotes.USD.volume_24h_change_24h}
+                            image={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
+                        />
+                    </TableBody>
                 </Table>
 
                 {/* {allData?.map((coin, index) => (
@@ -90,4 +149,6 @@ const TableHeader = styled.thead`
     }
 `
 
-
+const TableBody = styled.tbody`
+    
+`
