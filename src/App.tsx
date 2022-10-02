@@ -1,5 +1,4 @@
 import Router from "./Router";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from "styled-components";
 import ToggleButton from "./components/ToggleButton";
 import GlobalStyle from "./styles/GlobalStyle";
@@ -19,7 +18,6 @@ function App() {
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <ToggleButton/>
         <Router />
-        <ReactQueryDevtools initialIsOpen={true}/>
       </ThemeProvider>
     </>
   );

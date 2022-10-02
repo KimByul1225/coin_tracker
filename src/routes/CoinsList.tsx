@@ -1,26 +1,20 @@
 import { useQuery } from "react-query";
 import { useEffect, useCallback, useState } from 'react';
-
-
 import { handlefetchCoins } from "../api";
-
-
-
-
+import { TickerInterface } from "../types/common";
 import styled from 'styled-components';
 import BrowserTitle from '../components/BrowserTitle';
 import Row from '../components/Row';
-
-
 
 
 export default function CoinsList() {
     const [page, setPage] = useState(1);
     const [allData, setAllData] = useState<TickerInterface[]>([]);
 
+    const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
-    const { isLoading: allTickersLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
+    console.log("isLoading", isLoading);
 
     const handleInfiniteScroll = useCallback(async () => {
         const { offsetHeight, scrollTop } = document.documentElement;
@@ -49,7 +43,6 @@ export default function CoinsList() {
     }, [page, refetchAllTickers]);
 
 
-
     return (
         <Container>
             <BrowserTitle title="Coin Tracker"/>
@@ -57,48 +50,39 @@ export default function CoinsList() {
             <Wrap>
                 <Table>
                     <TableHeader>
-                        <th>
-                            Rank
-                        </th>
-                        <th></th>
-                        <th>
-                            Volume / Change
-                        </th>
-                        <th>
-                            Price / Change
-                        </th>
+                        <tr>
+                            <th>
+                                Rank
+                            </th>
+                            <th></th>
+                            <th>
+                                Volume / Change
+                            </th>
+                            <th>
+                                Price / Change
+                            </th>
+                        </tr>
                     </TableHeader>
                     <TableBody>
-                        <Row
-                            key={`${coin.id}${index}`}
-                            id={coin.id}
-                            rank={coin.rank}
-                            symbol={coin.symbol}
-                            name={coin.name}
-                            price={coin.quotes.USD.price}
-                            priceChange={coin.quotes.USD.percent_change_24h}
-                            volume={coin.quotes.USD.volume_24h}
-                            volumeChange={coin.quotes.USD.volume_24h_change_24h}
-                            image={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                        />
+                        {
+                            allData?.map((coin, index) => (
+                                <Row
+                                    key={`${coin.id}${index}`}
+                                    id={coin.id}
+                                    rank={coin.rank}
+                                    symbol={coin.symbol}
+                                    name={coin.name}
+                                    price={coin.quotes.USD.price}
+                                    priceChange={coin.quotes.USD.percent_change_24h}
+                                    volume={coin.quotes.USD.volume_24h}
+                                    volumeChange={coin.quotes.USD.volume_24h_change_24h}
+                                    image={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
+                                />
+                            ))
+                        }
+                        
                     </TableBody>
                 </Table>
-
-                {/* {allData?.map((coin, index) => (
-                <Coin
-                    key={`${coin.id}${index}`}
-                    id={coin.id}
-                    rank={coin.rank}
-                    symbol={coin.symbol}
-                    name={coin.name}
-                    price={coin.quotes.USD.price}
-                    priceChange={coin.quotes.USD.percent_change_24h}
-                    volume={coin.quotes.USD.volume_24h}
-                    volumeChange={coin.quotes.USD.volume_24h_change_24h}
-                    image={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                />
-                ))} */}
-
             </Wrap>
         </Container>
     )

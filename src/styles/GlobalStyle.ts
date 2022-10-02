@@ -65,6 +65,7 @@ const GlobalStyle = createGlobalStyle`
         align-items: center;
         background: url(${backgroundImg}) center no-repeat;
         background-size: cover;
+        background-attachment: fixed;
     }
     a{
         text-decoration: none;
