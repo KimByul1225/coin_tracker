@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "react-query";
 import { useEffect, useCallback, useState } from 'react';
 import { handlefetchCoins } from "../api";
