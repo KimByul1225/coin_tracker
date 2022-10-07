@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface RowProps {
     id: string;
@@ -14,9 +14,27 @@ interface RowProps {
     volumeChange: number;
 }
 
+interface DetailPageProps{
+    id?: string,
+    name?: string,
+    rank?: number
+}
+
 function Row({ id, rank, symbol, name, image, price, priceChange, volume, volumeChange }: RowProps) {
+    const history = useHistory();
+
+    const rowClickHandler = ({id, name, rank}: DetailPageProps) => {
+        history.push({
+            pathname: `/${id}`,
+            state: {
+                name,
+                rank
+            }
+        });
+    }
+
     return (
-        <TableRow>
+        <TableRow onClick={()=>rowClickHandler({id, name, rank})}>
             <td>{rank}</td>
             <td>
                 <CoinLogo
@@ -68,6 +86,7 @@ const TableRow = styled.tr`
     :hover{
         transform: scale(1.025);
     }
+    cursor: pointer;
 
 `
 
