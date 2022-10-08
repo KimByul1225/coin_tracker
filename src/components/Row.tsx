@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 interface RowProps {
     id: string;
     rank: number;
     symbol: string;
     name: string;
-    image: string;
+    image?: string;
     price: number;
     priceChange: number;
     volume: number;
@@ -41,8 +41,18 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
                     src={image ? image : ""} alt={name}
                 />
             </td>
-            <td>1</td>
-            <td>1</td>
+            <td>
+                <h3>{symbol}</h3>
+                <p>{name}</p>
+                <p>${Number(volume.toFixed(2)).toLocaleString("ko-KR")}</p>
+                <p>{volumeChange}%</p>
+            </td>
+            <td>
+                <h3>${Number(price.toFixed(2)).toLocaleString("ko-KR")}</h3>
+                <p>
+                    {priceChange > 0 ? `+${priceChange}` : `${priceChange}`}%
+                </p>
+            </td>
             
 
 
@@ -55,11 +65,14 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
 
                 <InformationContainer>
                     <Image src={image} alt={name}/>
+
                     <Content>
+
                     <SymbolContainer>
                         <Symbol>{symbol}</Symbol>
                         <Name>{name}</Name>
                     </SymbolContainer>
+
                     <CapContainer>
                         <Volume>${Number(volume.toFixed(2)).toLocaleString("ko-KR")}</Volume>
                         <Cap>{volumeChange}%</Cap>
