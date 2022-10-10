@@ -15,7 +15,7 @@ export default function CoinsList() {
     const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
 
-    console.log("isLoading", isLoading);
+    // console.log("isLoading", isLoading);
 
     const handleInfiniteScroll = useCallback(async () => {
         const { offsetHeight, scrollTop } = document.documentElement;
@@ -66,22 +66,23 @@ export default function CoinsList() {
                     </TableHeader>
                     <TableBody>
                         {
-                            allData?.map((coin, index) => (
-                                <Row
-                                    key={`${coin.id}${index}`}
-                                    id={coin.id}
-                                    rank={coin.rank}
-                                    symbol={coin.symbol}
-                                    name={coin.name}
-                                    price={coin.quotes.USD.price}
-                                    priceChange={coin.quotes.USD.percent_change_24h}
-                                    volume={coin.quotes.USD.volume_24h}
-                                    volumeChange={coin.quotes.USD.volume_24h_change_24h}
-                                    image={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                                />
-                            ))
+                            allData?.map((coin, index) => {
+                                const imgUrl = `https://cryptocurrencyliveprices.com/img/${coin.id}.png`;
+                                return(
+                                    <Row
+                                        key={`${coin.id}${index}`}
+                                        id={coin.id}
+                                        rank={coin.rank}
+                                        symbol={coin.symbol}
+                                        name={coin.name}
+                                        price={coin.quotes.USD.price}
+                                        priceChange={coin.quotes.USD.percent_change_24h}
+                                        volume={coin.quotes.USD.volume_24h}
+                                        volumeChange={coin.quotes.USD.volume_24h_change_24h}
+                                        image={imgUrl}
+                                    />
+                            )})
                         }
-                        
                     </TableBody>
                 </Table>
             </Wrap>
