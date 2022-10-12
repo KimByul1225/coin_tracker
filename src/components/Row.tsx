@@ -48,15 +48,17 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
                 <h2>{symbol}</h2>
             </td>
             <td>
-                <p>{name}</p>
+                <h3>{name}</h3>
                 <p>${Number(volume.toFixed(2)).toLocaleString("ko-KR")}</p>
                 <p>{volumeChange}%</p>
             </td>
             <td>
                 <h3>${Number(price.toFixed(2)).toLocaleString("ko-KR")}</h3>
-                <p>
+                <PriceChangeArea
+                    isPlus = {priceChange > 0}
+                >
                     {priceChange > 0 ? `+${priceChange}` : `${priceChange}`}%
-                </p>
+                </PriceChangeArea>
             </td>
             
 
@@ -71,10 +73,27 @@ export default Row;
 
 
 const TableRow = styled.tr`
+    td{
+        vertical-align: middle;
+        padding: 10px 0;
+    }
+    td:nth-child(1){
+        text-align: center;
+    }
+    td:nth-child(2){
+        text-align: center;
+    }
+    td:nth-child(3){
+        padding-left: 15px;
+    }
+    td:nth-child(4){
+        padding-left: 15px;
+    }
     :hover{
         transform: scale(1.025);
     }
     cursor: pointer;
+    border-bottom: 2px solid ${(props) => props.theme.grayColor};
 
 `
 
@@ -82,3 +101,7 @@ const CoinLogo = styled.img`
     width: 50px;
     height: 50px;
 `;
+
+const PriceChangeArea = styled.p<{isPlus: boolean}>`
+    color: ${(props) => (props.isPlus === true ? props.theme.greenColor : props.theme.redColor)};
+`

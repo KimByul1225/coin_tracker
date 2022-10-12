@@ -53,14 +53,16 @@ export default function CoinsList() {
                     <TableHeader>
                         <tr>
                             <th>
-                                Rank
-                            </th>
-                            <th></th>
-                            <th>
-                                Volume / Change
+                                순위
                             </th>
                             <th>
-                                Price / Change
+                                심볼
+                            </th>
+                            <th>
+                                시가총액 / 변동폭
+                            </th>
+                            <th>
+                                현재가격 / 변동폭
                             </th>
                         </tr>
                     </TableHeader>
@@ -92,8 +94,8 @@ export default function CoinsList() {
 
 const Container = styled.div`
     border-radius: 10px;
-    max-width: 480px;
-    width: 480px;
+    max-width: 640px;
+    width: 640px;
     padding: 40px 10px;
     box-sizing: border-box;
     box-shadow: black 5px 5px 20px 0px;
@@ -118,20 +120,20 @@ const Table = styled.table`
 const TableHeader = styled.thead`
     color: ${(props) => props.theme.grayColor};
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     width: 100%;
     th:nth-child(1){
-        width: 20%;
+        width: 10%;
     }
     th:nth-child(2){
         width: 20%;
     }
     th:nth-child(3){
-        width: 30%;
+        width: 45%;
     }
     th:nth-child(4){
-        width: 30%;
+        width: 25%;
     }
 `
 
