@@ -6,6 +6,7 @@ import { darkTheme, lightTheme } from "./styles/theme";
 
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./atoms";
+import GoTopButton from "./components/GoTopButton";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <ToggleButton/>
         <Router />
+        <GoTopButton/>
       </ThemeProvider>
     </>
   );

@@ -24,7 +24,7 @@ function ToggleButton() {
 export default ToggleButton
 
 const ThemeToggleButton = styled.button<ToggleButtonProps>`
-    position: absolute;
+    position: fixed;
     top: 50px;
     right: 50px;
     font-size: 36px;
