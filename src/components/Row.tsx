@@ -14,7 +14,6 @@ interface RowProps {
     volume: number;
     volumeChange: number;
 }
-
 interface DetailPageProps{
     id?: string,
     name?: string,
@@ -23,7 +22,6 @@ interface DetailPageProps{
 
 function Row({ id, rank, symbol, name, image, price, priceChange, volume, volumeChange }: RowProps) {
     const history = useHistory();
-
     const rowClickHandler = ({id, name, rank}: DetailPageProps) => {
         history.push({
             pathname: `/${id}`,
@@ -33,10 +31,6 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
             }
         });
     }
-
-
-
-
     return (
         <TableRow onClick={()=>rowClickHandler({id, name, rank})}>
             <td>{rank}</td>
@@ -50,7 +44,11 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
             <td>
                 <h3>{name}</h3>
                 <p>${Number(volume.toFixed(2)).toLocaleString("ko-KR")}</p>
-                <p>{volumeChange}%</p>
+                <PriceChangeArea
+                    isPlus = {volumeChange > 0}
+                >
+                    {volumeChange > 0 ? `+${volumeChange}` : `${volumeChange}`}%
+                </PriceChangeArea>
             </td>
             <td>
                 <h3>${Number(price.toFixed(2)).toLocaleString("ko-KR")}</h3>
@@ -60,15 +58,9 @@ function Row({ id, rank, symbol, name, image, price, priceChange, volume, volume
                     {priceChange > 0 ? `+${priceChange}` : `${priceChange}`}%
                 </PriceChangeArea>
             </td>
-            
-
-
-
-
         </TableRow>
     );
 }
-
 export default Row;
 
 
@@ -76,6 +68,19 @@ const TableRow = styled.tr`
     td{
         vertical-align: middle;
         padding: 10px 0;
+        h2{
+            font-weight: 800;
+            margin-top: 5px;
+        }
+        h3{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        p{
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
     }
     td:nth-child(1){
         text-align: center;
@@ -104,4 +109,6 @@ const CoinLogo = styled.img`
 
 const PriceChangeArea = styled.p<{isPlus: boolean}>`
     color: ${(props) => (props.isPlus === true ? props.theme.greenColor : props.theme.redColor)};
+    font-size: 18px;
+    font-weight: 800;
 `
