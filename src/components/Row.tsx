@@ -84,6 +84,8 @@ const TableRow = styled.tr`
     }
     td:nth-child(1){
         text-align: center;
+        font-size: 18px;
+        font-weight: 400;
     }
     td:nth-child(2){
         text-align: center;

@@ -6,6 +6,7 @@ import { TickerInterface } from "../types/common";
 import styled from 'styled-components';
 import BrowserTitle from '../components/BrowserTitle';
 import Row from '../components/Row';
+import Icon from '../images/icon/icon_coin.png'
 
 
 export default function CoinsList() {
@@ -47,7 +48,11 @@ export default function CoinsList() {
     return (
         <Container>
             <BrowserTitle title="Coin Tracker"/>
-            <Title>Coin Tracker</Title>
+            <Title>
+                <span/>
+                Coin Tracker
+                <span/>
+            </Title>
             <Wrap>
                 <Table>
                     <TableHeader>
@@ -104,11 +109,23 @@ const Container = styled.div`
     color: ${(props) => props.theme.textColor};
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
     text-transform: uppercase;
     text-align: center;
     font-size: 30px;
+    font-weight: 600;
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin: 5px 15px 10px 15px;
+        background: url(${Icon}) center no-repeat;
+        background-size: contain;
+    }
 `;
 
 const Wrap = styled.div`

@@ -51,6 +51,7 @@ const Button = styled.button`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    user-select: none;
     i{
         display: inline-block;
         width: 30px;
