@@ -10,3 +10,6 @@ export const handlefetchCoins = async (page: number) => {
     return response?.slice(0, 100);
 };
 
+export const handleFetchCoin = async (id: string | undefined) => {
+    return await (await fetch(`${BASE_URL}/coins/${id}`)).json();
+};
