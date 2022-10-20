@@ -6,7 +6,7 @@ import { TickerInterface } from "../types/common";
 import styled from 'styled-components';
 import BrowserTitle from '../components/BrowserTitle';
 import Row from '../components/Row';
-import Icon from '../images/icon/icon_coin.png'
+import Icon from '../images/icon/icon_coin.png';
 
 
 export default function CoinsList() {

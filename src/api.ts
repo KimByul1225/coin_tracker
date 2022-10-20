@@ -13,3 +13,7 @@ export const handlefetchCoins = async (page: number) => {
 export const handleFetchCoin = async (id: string | undefined) => {
     return await (await fetch(`${BASE_URL}/coins/${id}`)).json();
 };
+
+export const handleFetchTicker = async (id: string | undefined) => {
+    return await (await fetch(`${BASE_URL}/tickers/${id}`)).json();
+};

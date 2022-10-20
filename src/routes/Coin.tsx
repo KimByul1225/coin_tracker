@@ -4,31 +4,88 @@ import styled from 'styled-components';
 
 import { useQuery } from "react-query";
 
-import { CoinDetailInterface } from "../types/common";
+import { CoinDetailInterface, TickerDetailInterface } from "../types/common";
 
-import { handleFetchCoin } from '../api';
+import { handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
+
+import Icon from '../images/icon/icon_coin.png';
+import Loading from '../components/Loading';
 
 
 interface RouteParams {
     coinId: string;
 } 
 
+
+
+interface RouteState {
+    state: { name: string; rank: number };
+}
+
 export default function Coin() {
-    const {coinId} = useParams<RouteParams>();
-    const location = useLocation();
-    const {state} = location;
+    const { coinId } = useParams<RouteParams>();
+    const { state } = useLocation() as RouteState;
 
     console.log("location state", state);
     console.log("params", coinId);
 
-    const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId), { refetchInterval: 10000 });
+    const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
+
+    // const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId), { refetchInterval: 10000 });
+
+    const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
+
 
 
     return (
         <Container>
             <BrowserTitle title={coinData?.name} />
+            <Title>
+                <span/>
+                    {/* {state?.name || coinLoading || tickerLoading || ohlcLoading ? <Loading /> : coinData?.name} */}
+                    test
+                <span/>
+            </Title>
 
+            <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
+                {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
+            </PriceTitle>
+            
+
+            <OverviewContainer>
+                <OverviewContent>
+                    <span>Rank</span>
+                    <span>{coinData?.rank}</span>
+                </OverviewContent>
+                <OverviewContent>
+                    <span>Symbol</span>
+                    <span>{coinData?.symbol}</span>
+                </OverviewContent>
+                <OverviewContent>
+                    <span>Date</span>
+                    <span>{coinData?.first_data_at.substring(0, 10)}</span>
+                </OverviewContent>
+            </OverviewContainer>
+
+
+
+            <SummaryContainer>
+                <SummaryContent>
+                <span>Market Cap</span>
+                <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
+                </SummaryContent>
+                <SummaryContent>
+                <span>ATH</span>
+                <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
+                </SummaryContent>
+                <SummaryContent>
+                <span>24h Change</span>
+                <span>
+                    {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
+                </span>
+                </SummaryContent>
+            </SummaryContainer>
         </Container>
     )
 }
@@ -44,3 +101,65 @@ const Container = styled.div`
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
 `;
+
+const Title = styled.h2`
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin: 5px 15px 10px 15px;
+        background: url(${Icon}) center no-repeat;
+        background-size: contain;
+    }
+`;
+
+const PriceTitle = styled.h1<{ isIncrease: boolean }>`
+    font-size: 35px;
+    margin: 25px 0;
+    font-weight: bold;
+    color: ${(props) => (props.isIncrease === true ? props.theme.greenColor : props.theme.redColor)};
+`;
+
+const CommonContainer = styled.div`
+    display: flex;
+    background-color: ${(props) => props.theme.lightBlackColor};
+    color: ${(props) => props.theme.textColor};
+    border-radius: 5px;
+    padding: 15px 0;
+    margin: 10px 0;
+`;
+
+const CommonContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    span {
+        margin: 8px 10px;
+        text-transform: uppercase;
+        &:first-child {
+        font-weight: bold;
+        color: ${(props) => props.theme.yellowColor};
+        }
+        &:nth-child(2) {
+        font-weight: bold;
+        font-size: 15px;
+        }
+    }
+`;
+
+const OverviewContainer = styled(CommonContainer)``;
+
+const OverviewContent = styled(CommonContent)``;
+
+const SummaryContainer = styled(CommonContainer)``;
+
+const SummaryContent = styled(CommonContent)``;
