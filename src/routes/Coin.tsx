@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useParams, useRouteMatch } from 'react-router';
 import styled from 'styled-components';
 
 import { useQuery } from "react-query";
@@ -11,6 +11,7 @@ import BrowserTitle from '../components/BrowserTitle';
 
 import Icon from '../images/icon/icon_coin.png';
 import Loading from '../components/Loading';
+import { Link } from 'react-router-dom';
 
 
 interface RouteParams {
@@ -26,6 +27,8 @@ interface RouteState {
 export default function Coin() {
     const { coinId } = useParams<RouteParams>();
     const { state } = useLocation() as RouteState;
+    const priceMatch = useRouteMatch("/:coinId/price");
+    const chartMatch = useRouteMatch("/:coinId/chart");
 
     console.log("location state", state);
     console.log("params", coinId);
@@ -86,6 +89,22 @@ export default function Coin() {
                 </span>
                 </SummaryContent>
             </SummaryContainer>
+
+
+            <Tabs>
+                <Tab 
+                    isActive={chartMatch !== null}
+                >
+                    <Link to={`/${coinId}/chart`}>Chart</Link>
+                </Tab>
+                <Tab 
+                    isActive={priceMatch !== null}
+                >
+                    <Link to={`/${coinId}/price`}>Price</Link>
+                </Tab>
+            </Tabs>
+
+            
         </Container>
     )
 }
@@ -163,3 +182,28 @@ const OverviewContent = styled(CommonContent)``;
 const SummaryContainer = styled(CommonContainer)``;
 
 const SummaryContent = styled(CommonContent)``;
+
+
+
+const Tabs = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 25px 0px;
+    gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 7px 0px;
+    border-radius: 10px;
+    color: ${(props) =>
+        props.isActive ? props.theme.grayColor : props.theme.lightBlackColor};
+    a {
+        display: block;
+    }
+
+`;
