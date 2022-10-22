@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams, useRouteMatch } from 'react-router';
+import { useLocation, useParams, useRouteMatch, Switch, Route } from 'react-router';
 import styled from 'styled-components';
 
 import { useQuery } from "react-query";
@@ -103,6 +103,17 @@ export default function Coin() {
                     <Link to={`/${coinId}/price`}>Price</Link>
                 </Tab>
             </Tabs>
+            <Switch>
+                <Route path={`/${coinId}/price`}>
+                    {/* <Price /> */}
+                    price
+                </Route>
+                <Route path={`/:coinId/chart`}>
+                    {/* <Chart coinId={coinId} /> */}
+                    chart
+
+                </Route>
+            </Switch>
 
             
         </Container>
@@ -197,13 +208,18 @@ const Tab = styled.span<{ isActive: boolean }>`
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 400;
-    background-color: rgba(0, 0, 0, 0.5);
     padding: 7px 0px;
     border-radius: 10px;
-    color: ${(props) =>
-        props.isActive ? props.theme.grayColor : props.theme.lightBlackColor};
+    
     a {
         display: block;
+        padding: 12px 10px;
+        text-transform: uppercase;
+        background-color: ${(props) => (props.isActive === true ? props.theme.grayColor : props.theme.lightBlackColor)};
+        border-radius: 100px;
+        &:hover {
+        background-color: ${(props) => props.theme.grayColor};
+        }
     }
 
 `;
