@@ -12,6 +12,7 @@ import BrowserTitle from '../components/BrowserTitle';
 import Icon from '../images/icon/icon_coin.png';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
+import Chart from '../components/Chart';
 
 
 interface RouteParams {
@@ -109,9 +110,7 @@ export default function Coin() {
                     price
                 </Route>
                 <Route path={`/:coinId/chart`}>
-                    {/* <Chart coinId={coinId} /> */}
-                    chart
-
+                    <Chart coinId={coinId} />
                 </Route>
             </Switch>
 
