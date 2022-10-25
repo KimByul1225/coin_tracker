@@ -1,12 +1,9 @@
-import { useQuery } from "react-query";
 import React from 'react';
+import { useQuery } from "react-query";
 import { fetchCoinHistory } from '../api';
-
 import ApexChart from "react-apexcharts";
-import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
-
 
 interface IHistorycal {
     time_open: string ;
@@ -25,29 +22,12 @@ interface ChartProps{
 
 function Chart({ coinId }: ChartProps) {
     const isDark = useRecoilValue(isDarkAtom)
-
     const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 10000,
     });
-
-
-    console.log("test", data);
-
-
-
-
-
-
     const openData = data?.map((price) => Number(price.open)) as number[];;
     const closeData = data?.map(price => Number(price.close)) as number[];
-    
-
     const categoryDateData = data?.map(price => new Date(price.time_close * 1000).toUTCString());
-
-
-    console.log("closeData", closeData);
-    console.log("openData", openData);
-
     return (
         <div>
             {
@@ -107,7 +87,7 @@ function Chart({ coinId }: ChartProps) {
                             },
                             fill: { type: "gradient", gradient: { type: "horizontal", stops: [0, 5] } },
 
-                            colors: ["#0fbcf9", "#9000ff"],
+                            colors: ["#0fbcf9", "#b559fc"],
                             tooltip:{
                                 y: {
                                     formatter: (value) => `$ ${value.toFixed(3)}` 
@@ -116,10 +96,6 @@ function Chart({ coinId }: ChartProps) {
 
                         }}
                     />
-                    <BoxWrap>
-                        <Box></Box>
-                        <Box></Box>
-                    </BoxWrap>
                 </>
             }
         </div>
@@ -127,18 +103,3 @@ function Chart({ coinId }: ChartProps) {
 }
 
 export default Chart;
-
-const BoxWrap = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-`
-
-const Box = styled.div`
-    width: 48%;
-    height: 150px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    margin-bottom: 20px;
-`
