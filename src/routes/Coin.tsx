@@ -35,11 +35,9 @@ export default function Coin() {
     console.log("params", coinId);
 
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
-
     // const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId), { refetchInterval: 10000 });
-
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
-
+    const loading = coinLoading || tickerLoading;
 
 
     return (
@@ -47,8 +45,7 @@ export default function Coin() {
             <BrowserTitle title={coinData?.name} />
             <Title>
                 <span/>
-                    {/* {state?.name || coinLoading || tickerLoading || ohlcLoading ? <Loading /> : coinData?.name} */}
-                    test
+                    {state?.name ? state.name : loading ? <Loading /> : coinData?.name}
                 <span/>
             </Title>
 
