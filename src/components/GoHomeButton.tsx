@@ -1,11 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function GoHomeButton() {
     return (
-        <div>
+        <Button
+            to="/"
+        >
             home
-        </div>
+        </Button>
     );
 }
 
 export default GoHomeButton;
+
+const Button = styled(Link)`
+    
+`

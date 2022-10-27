@@ -13,6 +13,7 @@ import Icon from '../images/icon/icon_coin.png';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
+import GoHomeButton from '../components/GoHomeButton';
 
 
 interface RouteParams {
@@ -43,6 +44,7 @@ export default function Coin() {
     return (
         <Container>
             <BrowserTitle title={coinData?.name} />
+            <GoHomeButton/>
             <Title>
                 <span/>
                     {state?.name ? state.name : loading ? <Loading /> : coinData?.name}
