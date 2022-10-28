@@ -14,6 +14,7 @@ import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
 import GoHomeButton from '../components/GoHomeButton';
+import Price from '../components/Price';
 
 
 interface RouteParams {
@@ -105,8 +106,7 @@ export default function Coin() {
             </Tabs>
             <Switch>
                 <Route path={`/${coinId}/price`}>
-                    {/* <Price /> */}
-                    price
+                    <Price coinId={coinId}/>
                 </Route>
                 <Route path={`/:coinId/chart`}>
                     <Chart coinId={coinId} />

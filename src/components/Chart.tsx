@@ -23,7 +23,7 @@ interface ChartProps{
 function Chart({ coinId }: ChartProps) {
     const isDark = useRecoilValue(isDarkAtom)
     const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId),{
-        refetchInterval: 10000,
+        refetchInterval: 1000000,
     });
     const openData = data?.map((price) => Number(price.open)) as number[];;
     const closeData = data?.map(price => Number(price.close)) as number[];
