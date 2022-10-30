@@ -1,25 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from '../api';
 import ApexChart from "react-apexcharts";
 import { useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
 import Loading from './Loading';
+import { IHistorycal } from '../types/common';
 
 interface ChartProps{
     coinId: string;
 }
 
-interface IHistorycal {
-    time_open: string ;
-    time_close: any,
-    open: number,
-    high: number,
-    low: number,
-    close: number,
-    volume: number,
-    market_cap: number
-}
 
 function Price({ coinId }: ChartProps) {
 
@@ -27,9 +18,6 @@ function Price({ coinId }: ChartProps) {
     const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,
     });
-    const mappingData = data?.map((price) => ({ x: price.time_open, y: [Number(price.open), Number(price.high),Number(price.low), Number(price.close)] }));
-
-
     const sample = [
         {
             x: 1682035200,
@@ -46,7 +34,17 @@ function Price({ coinId }: ChartProps) {
     ]
 
 
-    console.log("Mapping", mappingData);
+
+    const mappingData = data?.map((price) => ({ x: price.time_open, y: [Number(price.open), Number(price.high),Number(price.low), Number(price.close)] }));
+
+    
+
+
+
+    console.log("mappingData", mappingData);
+
+
+
 
     if (isLoading) {
         return <Loading />;
@@ -55,8 +53,9 @@ function Price({ coinId }: ChartProps) {
     return (
         <div>
             {
-                isLoading? "Loading..." 
-                : 
+                // isLoading? "Loading..." 
+                // : 
+                data ? 
                 <>
                     <ApexChart 
                         type="candlestick"
@@ -79,6 +78,10 @@ function Price({ coinId }: ChartProps) {
                         }}
                         
                     />
+                </>
+                : 
+                <>
+                    데이터가 없습니다.
                 </>
             }
         </div>

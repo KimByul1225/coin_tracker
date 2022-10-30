@@ -4,17 +4,18 @@ import { fetchCoinHistory } from '../api';
 import ApexChart from "react-apexcharts";
 import { useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
+import { IHistorycal } from '../types/common';
 
-interface IHistorycal {
-    time_open: string ;
-    time_close: any,
-    open: number,
-    high: number,
-    low: number,
-    close: number,
-    volume: number,
-    market_cap: number
-}
+// interface IHistorycal {
+//     time_open: string;
+//     time_close: any;
+//     open: number;
+//     high: number;
+//     low: number;
+//     close: number;
+//     volume: number;
+//     market_cap: number;
+// }
 
 interface ChartProps{
     coinId: string;

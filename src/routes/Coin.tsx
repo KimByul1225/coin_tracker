@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import { useQuery } from "react-query";
 
-import { CoinDetailInterface, TickerDetailInterface } from "../types/common";
+import { CoinDetailInterface, IHistorycal, TickerDetailInterface } from "../types/common";
 
-import { handleFetchCoin, handleFetchTicker } from '../api';
+import { fetchCoinHistory, handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
 
 import Icon from '../images/icon/icon_coin.png';
@@ -38,8 +38,16 @@ export default function Coin() {
 
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
     // const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId), { refetchInterval: 10000 });
+
+    const{ isLoading: chartLoading, data: chartData } = useQuery<IHistorycal[]>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
+        refetchInterval: 1000000,
+    });
+
+
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
     const loading = coinLoading || tickerLoading;
+
+
 
 
     return (

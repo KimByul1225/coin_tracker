@@ -42,9 +42,9 @@ export interface TickerInterface {
     quotes: { USD: QuotesUSD };
 }
 
-export interface OhlcInterface {
-    time_open: string;
-    time_close: string;
+export interface IHistorycal {
+    time_open: any;
+    time_close: any;
     open: number;
     high: number;
     low: number;
