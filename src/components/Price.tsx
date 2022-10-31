@@ -43,19 +43,11 @@ function Price({ coinId }: ChartProps) {
 
     console.log("mappingData", mappingData);
 
-
-
-
-    if (isLoading) {
-        return <Loading />;
-    }
-
     return (
         <div>
             {
-                // isLoading? "Loading..." 
-                // : 
-                data ? 
+                isLoading? <Loading />
+                : 
                 <>
                     <ApexChart 
                         type="candlestick"
@@ -78,10 +70,6 @@ function Price({ coinId }: ChartProps) {
                         }}
                         
                     />
-                </>
-                : 
-                <>
-                    데이터가 없습니다.
                 </>
             }
         </div>

@@ -10,6 +10,7 @@ import { fetchCoinHistory, handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
 
 import Icon from '../images/icon/icon_coin.png';
+
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
@@ -27,6 +28,10 @@ interface RouteState {
     state: { name: string; rank: number };
 }
 
+// interface ErrorInterface{
+//     error: string;
+// }
+
 export default function Coin() {
     const { coinId } = useParams<RouteParams>();
     const { state } = useLocation() as RouteState;
@@ -37,11 +42,13 @@ export default function Coin() {
     console.log("params", coinId);
 
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
-    // const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId), { refetchInterval: 10000 });
 
-    const{ isLoading: chartLoading, data: chartData } = useQuery<IHistorycal[]>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
+    
+    const{ isLoading: chartLoading, data: chartData } = useQuery<any>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,
     });
+
+    console.log("차트데이터", chartData);
 
 
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
@@ -98,20 +105,32 @@ export default function Coin() {
                 </span>
                 </SummaryContent>
             </SummaryContainer>
+            
+            {
+                chartLoading ? 
+                <Loading/>
+                :
+                chartData.length > 0 ? 
+                <Tabs>
+                    <Tab 
+                        isActive={chartMatch !== null}
+                    >
+                        <Link to={`/${coinId}/chart`}>Chart</Link>
+                    </Tab>
+                    <Tab 
+                        isActive={priceMatch !== null}
+                    >
+                        <Link to={`/${coinId}/price`}>Price</Link>
+                    </Tab>
+                </Tabs>
+                :
+                <div>!!No</div> 
+            }
+
+            
 
 
-            <Tabs>
-                <Tab 
-                    isActive={chartMatch !== null}
-                >
-                    <Link to={`/${coinId}/chart`}>Chart</Link>
-                </Tab>
-                <Tab 
-                    isActive={priceMatch !== null}
-                >
-                    <Link to={`/${coinId}/price`}>Price</Link>
-                </Tab>
-            </Tabs>
+
             <Switch>
                 <Route path={`/${coinId}/price`}>
                     <Price coinId={coinId}/>

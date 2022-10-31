@@ -5,6 +5,7 @@ import ApexChart from "react-apexcharts";
 import { useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
 import { IHistorycal } from '../types/common';
+import Loading from './Loading';
 
 // interface IHistorycal {
 //     time_open: string;
@@ -32,7 +33,7 @@ function Chart({ coinId }: ChartProps) {
     return (
         <div>
             {
-                isLoading? "Loading..." 
+                isLoading? <Loading/> 
                 : 
                 <>
                     <ApexChart 
