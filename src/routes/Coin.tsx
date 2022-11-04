@@ -23,14 +23,10 @@ interface RouteParams {
 } 
 
 
-
 interface RouteState {
     state: { name: string; rank: number };
 }
 
-// interface ErrorInterface{
-//     error: string;
-// }
 
 export default function Coin() {
     const { coinId } = useParams<RouteParams>();
@@ -124,7 +120,7 @@ export default function Coin() {
                     </Tab>
                 </Tabs>
                 :
-                <div>!!No</div> 
+                <NoData>해당 코인은 차트 데이터가 없습니다.</NoData> 
             }
 
             
@@ -219,7 +215,12 @@ const SummaryContainer = styled(CommonContainer)``;
 
 const SummaryContent = styled(CommonContent)``;
 
-
+const NoData = styled.div`
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 50px;
+`
 
 const Tabs = styled.div`
     display: grid;
