@@ -73,6 +73,7 @@ export default function CoinsList() {
                     </TableHeader>
                     <TableBody>
                         {
+                            allData.length > 0 ?
                             allData?.map((coin, index) => {
                                 const imgUrl = `https://cryptocurrencyliveprices.com/img/${coin.id}.png`;
                                 return(
@@ -89,6 +90,12 @@ export default function CoinsList() {
                                         image={imgUrl}
                                     />
                             )})
+                            :
+                            <tr>
+                                <NoData colSpan={4}>
+                                    현재 Api 이상으로 데이터를 불러 올 수 없습니다.
+                                </NoData>
+                            </tr>
                         }
                     </TableBody>
                 </Table>
@@ -154,6 +161,11 @@ const TableHeader = styled.thead`
     }
 `
 
-const TableBody = styled.tbody`
-    
+const TableBody = styled.tbody``
+
+const NoData = styled.td`
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    padding-top: 50px;
 `

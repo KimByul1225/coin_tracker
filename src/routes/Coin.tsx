@@ -66,8 +66,6 @@ export default function Coin() {
             <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
                 {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
             </PriceTitle>
-            
-
             <OverviewContainer>
                 <OverviewContent>
                     <span>Rank</span>
@@ -82,9 +80,6 @@ export default function Coin() {
                     <span>{coinData?.first_data_at.substring(0, 10)}</span>
                 </OverviewContent>
             </OverviewContainer>
-
-
-
             <SummaryContainer>
                 <SummaryContent>
                 <span>Market Cap</span>
@@ -101,7 +96,6 @@ export default function Coin() {
                 </span>
                 </SummaryContent>
             </SummaryContainer>
-            
             {
                 chartLoading ? 
                 <Loading/>
@@ -122,11 +116,6 @@ export default function Coin() {
                 :
                 <NoData>해당 코인은 차트 데이터가 없습니다.</NoData> 
             }
-
-            
-
-
-
             <Switch>
                 <Route path={`/${coinId}/price`}>
                     <Price coinId={coinId}/>
@@ -135,8 +124,6 @@ export default function Coin() {
                     <Chart coinId={coinId} />
                 </Route>
             </Switch>
-
-            
         </Container>
     )
 }

@@ -52,7 +52,7 @@ function Price({ coinId }: ChartProps) {
                     <ApexChart 
                         type="candlestick"
                         series={[{ data: mappingData ? mappingData : sample }]}
-                        height={400}
+                        height={500}
                         options={{
                             chart: {
                                 toolbar: { show: true, tools: { download: true, pan: false, reset: false, zoom: false, zoomin: false, zoomout: false } },
