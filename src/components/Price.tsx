@@ -33,15 +33,7 @@ function Price({ coinId }: ChartProps) {
         }
     ]
 
-
-
     const mappingData = data?.map((price) => ({ x: price.time_open, y: [Number(price.open), Number(price.high),Number(price.low), Number(price.close)] }));
-
-    
-
-
-
-    console.log("mappingData", mappingData);
 
     return (
         <div>

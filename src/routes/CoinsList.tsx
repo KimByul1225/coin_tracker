@@ -12,11 +12,7 @@ import Icon from '../images/icon/icon_coin.png';
 export default function CoinsList() {
     const [page, setPage] = useState(1);
     const [allData, setAllData] = useState<TickerInterface[]>([]);
-
     const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
-
-
-    // console.log("isLoading", isLoading);
 
     const handleInfiniteScroll = useCallback(async () => {
         const { offsetHeight, scrollTop } = document.documentElement;
@@ -43,7 +39,6 @@ export default function CoinsList() {
     useEffect(() => {
         refetchAllTickers();
     }, [page, refetchAllTickers]);
-
 
     return (
         <Container>
@@ -108,7 +103,7 @@ const Container = styled.div`
     border-radius: 10px;
     max-width: 640px;
     width: 640px;
-    padding: 40px 10px;
+    padding: 40px 30px;
     box-sizing: border-box;
     box-shadow: black 5px 5px 20px 0px;
     margin: 100px 0;
@@ -136,7 +131,7 @@ const Title = styled.h2`
 `;
 
 const Wrap = styled.div`
-    padding: 20px;
+    padding: 20px 0;
 `
 const Table = styled.table`
     width: 100%;

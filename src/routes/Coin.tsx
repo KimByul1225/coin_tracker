@@ -1,32 +1,24 @@
 import React from 'react';
 import { useLocation, useParams, useRouteMatch, Switch, Route } from 'react-router';
 import styled from 'styled-components';
-
 import { useQuery } from "react-query";
-
 import { CoinDetailInterface, IHistorycal, TickerDetailInterface } from "../types/common";
-
 import { fetchCoinHistory, handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
-
 import Icon from '../images/icon/icon_coin.png';
-
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
 import GoHomeButton from '../components/GoHomeButton';
 import Price from '../components/Price';
 
-
 interface RouteParams {
     coinId: string;
 } 
 
-
 interface RouteState {
     state: { name: string; rank: number };
 }
-
 
 export default function Coin() {
     const { coinId } = useParams<RouteParams>();
@@ -34,19 +26,10 @@ export default function Coin() {
     const priceMatch = useRouteMatch("/:coinId/price");
     const chartMatch = useRouteMatch("/:coinId/chart");
 
-    console.log("location state", state);
-    console.log("params", coinId);
-
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
-
-    
     const{ isLoading: chartLoading, data: chartData } = useQuery<any>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,
     });
-
-    console.log("차트데이터", chartData);
-
-
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
     const loading = coinLoading || tickerLoading;
 
@@ -57,48 +40,54 @@ export default function Coin() {
         <Container>
             <BrowserTitle title={coinData?.name} />
             <GoHomeButton/>
-            <Title>
-                <span/>
-                    {state?.name ? state.name : loading ? <Loading /> : coinData?.name}
-                <span/>
-            </Title>
+                {
+                    loading ? <Loading/> :
+                    <>
+                        <Title>
+                            <span/>
+                                {state?.name ? state.name : coinData?.name}
+                            <span/>
+                        </Title>
 
-            <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
-                {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
-            </PriceTitle>
-            <OverviewContainer>
-                <OverviewContent>
-                    <span>Rank</span>
-                    <span>{coinData?.rank}</span>
-                </OverviewContent>
-                <OverviewContent>
-                    <span>Symbol</span>
-                    <span>{coinData?.symbol}</span>
-                </OverviewContent>
-                <OverviewContent>
-                    <span>Date</span>
-                    <span>{coinData?.first_data_at.substring(0, 10)}</span>
-                </OverviewContent>
-            </OverviewContainer>
-            <SummaryContainer>
-                <SummaryContent>
-                <span>Market Cap</span>
-                <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
-                </SummaryContent>
-                <SummaryContent>
-                <span>ATH</span>
-                <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
-                </SummaryContent>
-                <SummaryContent>
-                <span>24h Change</span>
-                <span>
-                    {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
-                </span>
-                </SummaryContent>
-            </SummaryContainer>
+                        <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
+                            {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
+                        </PriceTitle>
+                        <OverviewContainer>
+                            <OverviewContent>
+                                <span>Rank</span>
+                                <span>{coinData?.rank}</span>
+                            </OverviewContent>
+                            <OverviewContent>
+                                <span>Symbol</span>
+                                <span>{coinData?.symbol}</span>
+                            </OverviewContent>
+                            <OverviewContent>
+                                <span>Date</span>
+                                <span>{coinData?.first_data_at.substring(0, 10)}</span>
+                            </OverviewContent>
+                        </OverviewContainer>
+                        <SummaryContainer>
+                            <SummaryContent>
+                            <span>Market Cap</span>
+                            <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
+                            </SummaryContent>
+                            <SummaryContent>
+                            <span>ATH</span>
+                            <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
+                            </SummaryContent>
+                            <SummaryContent>
+                            <span>24h Change</span>
+                            <span>
+                                {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
+                            </span>
+                            </SummaryContent>
+                        </SummaryContainer>
+                    </>
+                }
+
             {
                 chartLoading ? 
-                <Loading/>
+                null
                 :
                 chartData.length > 0 ? 
                 <Tabs>
@@ -132,7 +121,7 @@ const Container = styled.div`
     border-radius: 10px;
     max-width: 640px;
     width: 640px;
-    padding: 40px 10px;
+    padding: 40px 30px;
     box-sizing: border-box;
     box-shadow: black 5px 5px 20px 0px;
     margin: 100px 0;
