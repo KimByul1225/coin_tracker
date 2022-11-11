@@ -10,7 +10,6 @@ interface DarkModeInterface {
 
 function GoHomeButton() {
     const darkAtom = useRecoilValue(isDarkAtom);
-
     return (
         <Button
             to="/"

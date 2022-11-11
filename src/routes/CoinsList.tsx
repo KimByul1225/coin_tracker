@@ -14,18 +14,23 @@ export default function CoinsList() {
     const [allData, setAllData] = useState<TickerInterface[]>([]);
     const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
-    const handleInfiniteScroll = useCallback(async () => {
-        const { offsetHeight, scrollTop } = document.documentElement;
-        const innerHeight = window.innerHeight;
-        if (offsetHeight === innerHeight + scrollTop) {
-        setPage((prevPage) => prevPage + 1);
-        }
-    }, []);
+    // 아래 주석은 스크롤 시 자동으로 코인리스트가 더보기 되도록 구현
+    // const handleInfiniteScroll = useCallback(async () => {
+    //     const { offsetHeight, scrollTop } = document.documentElement;
+    //     const innerHeight = window.innerHeight;
+    //     if (offsetHeight === innerHeight + scrollTop) {
+    //     setPage((prevPage) => prevPage + 1);
+    //     }
+    // }, []);
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleInfiniteScroll);
+    //     return () => window.removeEventListener("scroll", handleInfiniteScroll);
+    // }, [handleInfiniteScroll]);
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll);
-    }, [handleInfiniteScroll]);
+    // Api 무료 사용량 문제로 버튼으로 변경 
+    const moreViewHandler = () => {
+        setPage((prevPage) => prevPage + 1);
+    }
 
     useEffect(() => {
         if (allTickersData) {
@@ -95,6 +100,13 @@ export default function CoinsList() {
                     </TableBody>
                 </Table>
             </Wrap>
+            <ButtonWrap>
+                <MoreView
+                    onClick={moreViewHandler}
+                >
+                    리스트 더보기
+                </MoreView>
+            </ButtonWrap>
         </Container>
     )
 }
@@ -163,4 +175,15 @@ const NoData = styled.td`
     font-size: 22px;
     font-weight: 400;
     padding-top: 50px;
+`
+const ButtonWrap = styled.div`
+    display: flex;
+    justify-content: center;
+`
+const MoreView = styled.button`
+    background: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #000;
 `
