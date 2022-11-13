@@ -12,6 +12,8 @@ import Chart from '../components/Chart';
 import GoHomeButton from '../components/GoHomeButton';
 import Price from '../components/Price';
 
+
+
 interface RouteParams {
     coinId: string;
 } 
@@ -26,15 +28,13 @@ export default function Coin() {
     const priceMatch = useRouteMatch("/:coinId/price");
     const chartMatch = useRouteMatch("/:coinId/chart");
 
+
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
     const{ isLoading: chartLoading, data: chartData } = useQuery<any>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,
     });
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
     const loading = coinLoading || tickerLoading;
-
-
-
 
     return (
         <Container>

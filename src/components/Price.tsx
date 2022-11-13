@@ -13,7 +13,6 @@ interface ChartProps{
 
 
 function Price({ coinId }: ChartProps) {
-
     const isDark = useRecoilValue(isDarkAtom)
     const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,

@@ -7,11 +7,18 @@ import styled from 'styled-components';
 import BrowserTitle from '../components/BrowserTitle';
 import Row from '../components/Row';
 import Icon from '../images/icon/icon_coin.png';
+import {  useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
+interface DarkModeInterface {
+    isDark: boolean;
+}
 
 export default function CoinsList() {
     const [page, setPage] = useState(1);
     const [allData, setAllData] = useState<TickerInterface[]>([]);
+    const darkAtom = useRecoilValue(isDarkAtom);
+
     const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
     // 아래 주석은 스크롤 시 자동으로 코인리스트가 더보기 되도록 구현
@@ -50,7 +57,7 @@ export default function CoinsList() {
             <BrowserTitle title="Coin Tracker"/>
             <Title>
                 <span/>
-                Coin Tracker
+                    Coin Tracker
                 <span/>
             </Title>
             <Wrap>
@@ -103,6 +110,7 @@ export default function CoinsList() {
             <ButtonWrap>
                 <MoreView
                     onClick={moreViewHandler}
+                    isDark={darkAtom}
                 >
                     리스트 더보기
                 </MoreView>
@@ -179,11 +187,19 @@ const NoData = styled.td`
 const ButtonWrap = styled.div`
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 `
-const MoreView = styled.button`
+const MoreView = styled.button<DarkModeInterface>`
+    cursor: pointer;
     background: none;
     width: 100px;
     height: 40px;
     border-radius: 20px;
-    border: 1px solid #000;
+    border: 1px solid ${(props) => props.isDark ? "#fff" : "#000"};
+    color: ${(props) => props.isDark ? "#fff" : "#000"};
+    opacity: 0.7;
+    :hover{
+        opacity: 1;
+        transition: all .3s ease;
+    }
 `
