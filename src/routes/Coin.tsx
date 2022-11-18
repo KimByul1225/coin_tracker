@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
 import GoHomeButton from '../components/GoHomeButton';
 import Price from '../components/Price';
+import noImg from '../images/icon/icon_no_img.png';
 
 
 
@@ -36,6 +37,8 @@ export default function Coin() {
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
     const loading = coinLoading || tickerLoading;
 
+    const imgUrl = `https://cryptocurrencyliveprices.com/img/${coinId}.png`;
+
     return (
         <Container>
             <BrowserTitle title={coinData?.name} />
@@ -49,9 +52,19 @@ export default function Coin() {
                             <span/>
                         </Title>
 
-                        <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
-                            {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
-                        </PriceTitle>
+                        <IconPriceWrap>
+                            <CoinLogo
+                                src={imgUrl} alt={coinId}
+                                onError={e => e.currentTarget.src = noImg}
+                            />
+                            <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
+                                {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
+                            </PriceTitle>
+
+                        </IconPriceWrap>
+                        
+
+
                         <OverviewContainer>
                             <OverviewContent>
                                 <span>Rank</span>
@@ -148,9 +161,22 @@ const Title = styled.h2`
     }
 `;
 
+const IconPriceWrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+`
+
+const CoinLogo = styled.img`
+    width: 100px;
+    height: 100px;
+`
+
+
 const PriceTitle = styled.h1<{ isIncrease: boolean }>`
     font-size: 35px;
-    margin: 25px 0;
+    margin-left: 50px;
     font-weight: bold;
     color: ${(props) => (props.isIncrease === true ? props.theme.greenColor : props.theme.redColor)};
 `;
