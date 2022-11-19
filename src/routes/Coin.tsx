@@ -51,7 +51,6 @@ export default function Coin() {
                                 {state?.name ? state.name : coinData?.name}
                             <span/>
                         </Title>
-
                         <IconPriceWrap>
                             <CoinLogo
                                 src={imgUrl} alt={coinId}
@@ -60,41 +59,47 @@ export default function Coin() {
                             <PriceTitle isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}>
                                 {tickerData && `$${Number(tickerData.quotes.USD.price.toFixed(3)).toLocaleString("ko-KR")}`}
                             </PriceTitle>
-
                         </IconPriceWrap>
+                        <BoxWrap>
+                            <Box>
+                                <h4>Rank</h4>
+                                <p>{coinData?.rank}</p>
+                            </Box>
+                            <Box>
+                                <h4>Symbol</h4>
+                                <p>{coinData?.symbol}</p>
+                            </Box>
+
+                            <Box>
+                                <h4>Date</h4>
+                                <span>{coinData?.first_data_at.substring(0, 10)}</span>
+                            </Box>
+                            <Box
+                                isIncrease={!!(tickerData && tickerData.quotes.USD.market_cap_change_24h > 0)}
+                            >
+                                <h4>24h Change</h4>
+                                <h5>
+                                    {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
+                                </h5>
+                            </Box>
+
+                            <Box>
+                                <h4>Market Cap</h4>
+                                <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
+                            </Box>
+                            <Box>
+                                <h4>ATH</h4>
+                                <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
+                            </Box>
+                        </BoxWrap>
+
+                        
+
                         
 
 
-                        <OverviewContainer>
-                            <OverviewContent>
-                                <span>Rank</span>
-                                <span>{coinData?.rank}</span>
-                            </OverviewContent>
-                            <OverviewContent>
-                                <span>Symbol</span>
-                                <span>{coinData?.symbol}</span>
-                            </OverviewContent>
-                            <OverviewContent>
-                                <span>Date</span>
-                                <span>{coinData?.first_data_at.substring(0, 10)}</span>
-                            </OverviewContent>
-                        </OverviewContainer>
-                        <SummaryContainer>
-                            <SummaryContent>
-                            <span>Market Cap</span>
-                            <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
-                            </SummaryContent>
-                            <SummaryContent>
-                            <span>ATH</span>
-                            <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
-                            </SummaryContent>
-                            <SummaryContent>
-                            <span>24h Change</span>
-                            <span>
-                                {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
-                            </span>
-                            </SummaryContent>
-                        </SummaryContainer>
+
+
                     </>
                 }
 
@@ -181,41 +186,72 @@ const PriceTitle = styled.h1<{ isIncrease: boolean }>`
     color: ${(props) => (props.isIncrease === true ? props.theme.greenColor : props.theme.redColor)};
 `;
 
-const CommonContainer = styled.div`
-    display: flex;
-    background-color: ${(props) => props.theme.lightBlackColor};
-    color: ${(props) => props.theme.textColor};
-    border-radius: 5px;
-    padding: 15px 0;
-    margin: 10px 0;
-`;
+// const CommonContainer = styled.div`
+//     display: flex;
+//     background-color: ${(props) => props.theme.lightBlackColor};
+//     color: ${(props) => props.theme.textColor};
+//     border-radius: 5px;
+//     padding: 15px 0;
+//     margin: 10px 0;
+// `;
 
-const CommonContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 
-    span {
-        margin: 8px 10px;
-        text-transform: uppercase;
-        &:first-child {
-        font-weight: bold;
-        color: ${(props) => props.theme.yellowColor};
-        }
-        &:nth-child(2) {
-        font-weight: bold;
-        font-size: 15px;
-        }
+const BoxWrap = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+`
+const Box = styled.div<{ isIncrease?: boolean }>`
+    width: 48.5%;
+    padding: 20px 25px;
+    border: 1px solid #bababa;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    h4{
+        font-weight: 600;
+        color: ${(props) => props.theme.accentColor};
+        font-size: 24px;
+        margin-bottom: 20px;
     }
-`;
+    h5{
+        font-weight: 900;
+        font-size: 30px;
+        text-align: right;
+        color: ${(props) => (props.isIncrease === true ? props.theme.greenColor : props.theme.redColor)};
+    }
+    p{
+        font-weight: 900;
+        font-size: 30px;
+        text-align: right;
+    }
+    span{
+        display: block;
+        font-weight: 600;
+        font-size: 22px;
+        text-align: right;
+    }
 
-const OverviewContainer = styled(CommonContainer)``;
+`
 
-const OverviewContent = styled(CommonContent)``;
+// const CommonContent = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     flex: 1;
 
-const SummaryContainer = styled(CommonContainer)``;
-
-const SummaryContent = styled(CommonContent)``;
+//     span {
+//         margin: 8px 10px;
+//         text-transform: uppercase;
+//         &:first-child {
+//         font-weight: bold;
+//         color: ${(props) => props.theme.accentColor};
+//         }
+//         &:nth-child(2) {
+//         font-weight: bold;
+//         font-size: 15px;
+//         }
+//     }
+// `;
 
 const NoData = styled.div`
     text-align: center;
