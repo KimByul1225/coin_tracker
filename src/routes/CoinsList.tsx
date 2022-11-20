@@ -191,9 +191,10 @@ const ButtonWrap = styled.div`
 `
 const MoreView = styled.button<DarkModeInterface>`
     cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
     background: none;
-    width: 100px;
-    height: 40px;
+    padding: 10px 15px;
     border-radius: 20px;
     border: 1px solid ${(props) => props.isDark ? "#fff" : "#000"};
     color: ${(props) => props.isDark ? "#fff" : "#000"};

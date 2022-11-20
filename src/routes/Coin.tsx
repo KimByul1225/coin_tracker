@@ -69,7 +69,6 @@ export default function Coin() {
                                 <h4>Symbol</h4>
                                 <p>{coinData?.symbol}</p>
                             </Box>
-
                             <Box>
                                 <h4>Date</h4>
                                 <span>{coinData?.first_data_at.substring(0, 10)}</span>
@@ -82,7 +81,6 @@ export default function Coin() {
                                     {tickerData && tickerData.quotes.USD.percent_change_24h > 0 ? `+${tickerData.quotes.USD.percent_change_24h}%` : `${tickerData?.quotes.USD.percent_change_24h}%`}
                                 </h5>
                             </Box>
-
                             <Box>
                                 <h4>Market Cap</h4>
                                 <span>${Number(tickerData?.quotes.USD.market_cap).toLocaleString("ko-KR")}</span>
@@ -92,14 +90,6 @@ export default function Coin() {
                                 <span>${Number(tickerData?.quotes.USD.ath_price.toFixed(3)).toLocaleString("ko-KR")}</span>
                             </Box>
                         </BoxWrap>
-
-                        
-
-                        
-
-
-
-
                     </>
                 }
 
@@ -185,17 +175,6 @@ const PriceTitle = styled.h1<{ isIncrease: boolean }>`
     font-weight: bold;
     color: ${(props) => (props.isIncrease === true ? props.theme.greenColor : props.theme.redColor)};
 `;
-
-// const CommonContainer = styled.div`
-//     display: flex;
-//     background-color: ${(props) => props.theme.lightBlackColor};
-//     color: ${(props) => props.theme.textColor};
-//     border-radius: 5px;
-//     padding: 15px 0;
-//     margin: 10px 0;
-// `;
-
-
 const BoxWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -233,26 +212,6 @@ const Box = styled.div<{ isIncrease?: boolean }>`
     }
 
 `
-
-// const CommonContent = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     flex: 1;
-
-//     span {
-//         margin: 8px 10px;
-//         text-transform: uppercase;
-//         &:first-child {
-//         font-weight: bold;
-//         color: ${(props) => props.theme.accentColor};
-//         }
-//         &:nth-child(2) {
-//         font-weight: bold;
-//         font-size: 15px;
-//         }
-//     }
-// `;
-
 const NoData = styled.div`
     text-align: center;
     font-size: 22px;

@@ -40,11 +40,13 @@ const Button = styled.button`
     bottom: 50px;
     right: 50px;
     color: #fff;
-    font-size: 14px;
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    border: 1px solid #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    border: 2px solid #fff;
     background-color: transparent;
     cursor: pointer;
     display: flex;
@@ -52,6 +54,11 @@ const Button = styled.button`
     align-items: center;
     flex-direction: column;
     user-select: none;
+    opacity: 0.7;
+    :hover{
+        opacity: 1;
+        transition: all .3s ease;
+    }
     i{
         display: inline-block;
         width: 30px;
