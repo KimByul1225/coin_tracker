@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import {  useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
 
+/**
+ * @description 상세페이지에서 리스트 페이지로 이동을 위한 버튼 컴포넌트
+ */
+
 interface DarkModeInterface {
     isDark: boolean;
 }

@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Icon from "../images/icon/icon_go_top.png";
 
+/**
+ * @description 리스트페이지에서 페이지 최상단으로 이동하기 위한 버튼 컴포넌트
+ */
+
 function GoTopButton() {
     const [showTopBtn, setShowTopBtn] = useState(false);
     useEffect(() => {

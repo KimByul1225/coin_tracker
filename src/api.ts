@@ -12,11 +12,6 @@ export function fetchCoinHistory(id: string) {
     );
 };
 
-
-
-
-
-
 export const handlefetchCoins = async (page: number) => {
     const response = await (await fetch(`${BASE_URL}/tickers?page=${page}`)).json();
     return response?.slice(0, 100);

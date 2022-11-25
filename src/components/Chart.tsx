@@ -7,16 +7,9 @@ import { isDarkAtom } from '../atoms';
 import { IHistorycal } from '../types/common';
 import Loading from './Loading';
 
-// interface IHistorycal {
-//     time_open: string;
-//     time_close: any;
-//     open: number;
-//     high: number;
-//     low: number;
-//     close: number;
-//     volume: number;
-//     market_cap: number;
-// }
+/**
+ * @description 상세페이지 라인차트를 위한 컴포넌트
+ */
 
 interface ChartProps{
     coinId: string;
