@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from '../api';
 import ApexChart from "react-apexcharts";
@@ -7,10 +7,13 @@ import { isDarkAtom } from '../atoms';
 import Loading from './Loading';
 import { IHistorycal } from '../types/common';
 
+/**
+ * @description 상세페이지 캔들스틱차트를 위한 컴포넌트
+ */
+
 interface ChartProps{
     coinId: string;
 }
-
 
 function Price({ coinId }: ChartProps) {
     const isDark = useRecoilValue(isDarkAtom)

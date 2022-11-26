@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import noImg from '../images/icon/icon_no_img.png';
 
+/**
+ * @description 리스트 페이지 코인 리스트 각각의 테이블 row를 위한 컴포넌트
+ */
+
 interface RowProps {
     id: string;
     rank: number;
@@ -101,7 +105,6 @@ const TableRow = styled.tr`
     }
     cursor: pointer;
     border-bottom: 2px solid ${(props) => props.theme.grayColor};
-
 `
 
 const CoinLogo = styled.img`
