@@ -10,6 +10,10 @@ import Icon from '../images/icon/icon_coin.png';
 import {  useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
 
+/**
+ * @description 코인 리스트페이지 컴포넌트
+ */
+
 interface DarkModeInterface {
     isDark: boolean;
 }
@@ -18,7 +22,6 @@ export default function CoinsList() {
     const [page, setPage] = useState(1);
     const [allData, setAllData] = useState<TickerInterface[]>([]);
     const darkAtom = useRecoilValue(isDarkAtom);
-
     const { isLoading, data: allTickersData, refetch: refetchAllTickers } = useQuery<TickerInterface[]>("allTickers", () => handlefetchCoins(page));
 
     // 아래 주석은 스크롤 시 자동으로 코인리스트가 더보기 되도록 구현
@@ -34,7 +37,8 @@ export default function CoinsList() {
     //     return () => window.removeEventListener("scroll", handleInfiniteScroll);
     // }, [handleInfiniteScroll]);
 
-    // Api 무료 사용량 문제로 버튼으로 변경 
+
+    // Api 무료 사용량 문제로 아래와 같이 버튼으로 변경 
     const moreViewHandler = () => {
         setPage((prevPage) => prevPage + 1);
     }

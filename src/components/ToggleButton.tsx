@@ -3,6 +3,10 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { isDarkAtom } from '../atoms';
 
+/**
+ * @description 일반모드, 다크모드 변경을 위한 토글버튼 컴포넌트
+ */
+
 interface ToggleButtonProps {
     isDark: boolean;
 }

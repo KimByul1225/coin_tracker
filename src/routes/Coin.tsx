@@ -5,15 +5,17 @@ import { useQuery } from "react-query";
 import { CoinDetailInterface, IHistorycal, TickerDetailInterface } from "../types/common";
 import { fetchCoinHistory, handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
-import Icon from '../images/icon/icon_coin.png';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
 import GoHomeButton from '../components/GoHomeButton';
 import Price from '../components/Price';
+import Icon from '../images/icon/icon_coin.png';
 import noImg from '../images/icon/icon_no_img.png';
 
-
+/**
+ * @description 일반모드, 다크모드 변경을 위한 토글버튼 컴포넌트
+ */
 
 interface RouteParams {
     coinId: string;
@@ -28,15 +30,12 @@ export default function Coin() {
     const { state } = useLocation() as RouteState;
     const priceMatch = useRouteMatch("/:coinId/price");
     const chartMatch = useRouteMatch("/:coinId/chart");
-
-
     const { isLoading: coinLoading, data: coinData } = useQuery<CoinDetailInterface>(["coin", coinId], () => handleFetchCoin(coinId));
     const{ isLoading: chartLoading, data: chartData } = useQuery<any>(["ohlc", "price", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 1000000,
     });
     const { isLoading: tickerLoading, data: tickerData } = useQuery<TickerDetailInterface>(["ticker", coinId], () => handleFetchTicker(coinId));
     const loading = coinLoading || tickerLoading;
-
     const imgUrl = `https://cryptocurrencyliveprices.com/img/${coinId}.png`;
 
     return (
@@ -167,7 +166,6 @@ const CoinLogo = styled.img`
     width: 100px;
     height: 100px;
 `
-
 
 const PriceTitle = styled.h1<{ isIncrease: boolean }>`
     font-size: 35px;
