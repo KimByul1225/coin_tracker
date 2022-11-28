@@ -9,6 +9,7 @@ import Row from '../components/Row';
 import Icon from '../images/icon/icon_coin.png';
 import {  useRecoilValue } from 'recoil';
 import { isDarkAtom } from '../atoms';
+import Loading from "../components/Loading";
 
 /**
  * @description 코인 리스트페이지 컴포넌트
@@ -82,43 +83,50 @@ export default function CoinsList() {
                             </th>
                         </tr>
                     </TableHeader>
-                    <TableBody>
-                        {
-                            allData.length > 0 ?
-                            allData?.map((coin, index) => {
-                                const imgUrl = `https://cryptocurrencyliveprices.com/img/${coin.id}.png`;
-                                return(
-                                    <Row
-                                        key={`${coin.id}${index}`}
-                                        id={coin.id}
-                                        rank={coin.rank}
-                                        symbol={coin.symbol}
-                                        name={coin.name}
-                                        price={coin.quotes.USD.price}
-                                        priceChange={coin.quotes.USD.percent_change_24h}
-                                        volume={coin.quotes.USD.volume_24h}
-                                        volumeChange={coin.quotes.USD.volume_24h_change_24h}
-                                        image={imgUrl}
-                                    />
-                            )})
-                            :
-                            <tr>
-                                <NoData colSpan={4}>
-                                    현재 Api 이상으로 데이터를 불러 올 수 없습니다.
-                                </NoData>
-                            </tr>
-                        }
-                    </TableBody>
+                    {
+                        isLoading ? <Loading/> :
+                        <TableBody>
+                            {
+                                allData.length > 0 ?
+                                allData?.map((coin, index) => {
+                                    const imgUrl = `https://cryptocurrencyliveprices.com/img/${coin.id}.png`;
+                                    return(
+                                        <Row
+                                            key={`${coin.id}${index}`}
+                                            id={coin.id}
+                                            rank={coin.rank}
+                                            symbol={coin.symbol}
+                                            name={coin.name}
+                                            price={coin.quotes.USD.price}
+                                            priceChange={coin.quotes.USD.percent_change_24h}
+                                            volume={coin.quotes.USD.volume_24h}
+                                            volumeChange={coin.quotes.USD.volume_24h_change_24h}
+                                            image={imgUrl}
+                                        />
+                                )})
+                                :
+                                <tr>
+                                    <NoData colSpan={4}>
+                                        현재 Api 이상으로 데이터를 불러 올 수 없습니다.
+                                    </NoData>
+                                </tr>
+                            }
+                        </TableBody>
+                    }
                 </Table>
             </Wrap>
-            <ButtonWrap>
-                <MoreView
-                    onClick={moreViewHandler}
-                    isDark={darkAtom}
-                >
-                    리스트 더보기
-                </MoreView>
-            </ButtonWrap>
+            {
+                !isLoading && 
+                <ButtonWrap>
+                    <MoreView
+                        onClick={moreViewHandler}
+                        isDark={darkAtom}
+                    >
+                        리스트 더보기
+                    </MoreView>
+                </ButtonWrap>
+            }
+            
         </Container>
     )
 }
