@@ -14,7 +14,7 @@ import Icon from '../images/icon/icon_coin.png';
 import noImg from '../images/icon/icon_no_img.png';
 
 /**
- * @description 일반모드, 다크모드 변경을 위한 토글버튼 컴포넌트
+ * @description 코인 상세페이지 컴포넌트
  */
 
 interface RouteParams {
