@@ -1,19 +1,20 @@
 <div align="center">
-    <img height="200" src="./readme/logo.png" />
-    <br />
-    <a display="block" href="#">https://github.com/KimByul1225/coin_tracker</a>
-    <br /><br />
-</div>
-<br />
-<div align="center">
-    
-# Coin Tracker
 
+# Coin Tracker
+<br />
+<img height="200" src="./readme/logo.png" />
+<br />
+<a display="block" href="#">https://github.com/KimByul1225/coin_tracker</a>
+<br /><br />
 </div>
 <br />
+
+
 
 ## 화면구성
-<img height="200" src="./readme/logo.png" />
+<img height="450" src="./readme/device_mock_up.png" />
+<br />
+<br />
 
 ## Stacks
 ### Environment
