@@ -9,11 +9,8 @@
 </div>
 <br />
 
-
-
 ## 화면구성
-<img height="450" src="./readme/device_mock_up.png" />
-<br />
+<img width="100%" height="auto" src="./readme/device_mock_up.png" />
 <br />
 
 ## Stacks
@@ -37,3 +34,22 @@
 <br />
 
 ## Project Detail
+> 1. 가상화폐 정보 제공
+- React Query를 이용한 가상화폐 API연동.
+<br /><br />
+<img width="100%" height="auto" src="./readme/project_detail01.gif" />
+
+> 2. 데이터 시각화
+- Apex Charts를 이용한 데이터 시각화.
+<br /><br />
+<img width="100%" height="auto" src="./readme/project_detail02.gif" />
+<br /><br />
+
+> 3. 라이트 모드, 다크모드 구현
+- Styled Components와 Recoil을 활용 라이트 모드, 다크모드 구현.
+<br /><br />
+<img width="100%" height="auto" src="./readme/project_detail03.gif" />
+
+
+
+
