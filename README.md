@@ -34,18 +34,20 @@
 <br />
 
 ## Project Detail
-1. 가상화폐 정보 제공
+### 1. 가상화폐 정보 제공
 - React Query를 이용한 가상화폐 API연동.
 <img width="100%" height="auto" src="./readme/project_detail01.gif" />
+<br />
 
-2. 데이터 시각화
+### 2. 데이터 시각화
 - Apex Charts를 이용한 데이터 시각화.
 <img width="100%" height="auto" src="./readme/project_detail02.gif" />
-<br /><br />
+<br />
 
-3. 라이트 모드, 다크모드 구현
+### 3. 라이트 모드, 다크모드 구현
 - Styled Components와 Recoil을 활용 라이트 모드, 다크모드 구현.
 <img width="100%" height="auto" src="./readme/project_detail03.gif" />
+<br />
 
 
 
