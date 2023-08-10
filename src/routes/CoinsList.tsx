@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { handlefetchCoins } from "../api";
 import { TickerInterface } from "../types/common";
 import styled from 'styled-components';

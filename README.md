@@ -4,16 +4,17 @@
 <br />
 <img height="200" src="./readme/logo.png" />
 <br />
-<a display="block" href="#">https://github.com/KimByul1225/coin_tracker</a>
+<br />
+<a display="block" href="https://byul-coin-tracker.netlify.app/">https://byul-coin-tracker.netlify.app</a>
 <br /><br />
 </div>
 <br />
 
-## 화면구성
+## 화면구성 🖥
 <img width="100%" height="auto" src="./readme/device_mock_up.png" />
 <br />
 
-## Stacks
+## Stacks 🧑🏻‍💻
 ### Environment
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 ### Config
@@ -33,7 +34,7 @@
 ![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)    
 <br />
 
-## Project Detail
+## Project Detail 💻
 ### 1. 가상화폐 정보 제공
 - React Query를 이용한 가상화폐 API연동.
 <img width="100%" height="auto" src="./readme/project_detail01.gif" />
@@ -48,7 +49,3 @@
 - Styled Components와 Recoil을 활용 라이트 모드, 다크모드 구현.
 <img width="100%" height="auto" src="./readme/project_detail03.gif" />
 <br />
-
-
-
-

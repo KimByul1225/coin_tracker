@@ -4,11 +4,9 @@ import Coin from './routes/Coin';
 import CoinsList from './routes/CoinsList';
 
 
-interface IRouterProps {
-    
-}
 
-function Router({}: IRouterProps) {
+
+function Router() {
     return (
         <BrowserRouter>
             <Switch>

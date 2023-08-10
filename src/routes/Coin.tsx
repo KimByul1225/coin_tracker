@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useParams, useRouteMatch, Switch, Route } from 'react-router';
 import styled from 'styled-components';
 import { useQuery } from "react-query";
-import { CoinDetailInterface, IHistorycal, TickerDetailInterface } from "../types/common";
+import { CoinDetailInterface, TickerDetailInterface } from "../types/common";
 import { fetchCoinHistory, handleFetchCoin, handleFetchTicker } from '../api';
 import BrowserTitle from '../components/BrowserTitle';
 import Loading from '../components/Loading';
