@@ -1,5 +1,5 @@
 {
-  "name": "delight_labs_test",
+  "name": "coin_tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
