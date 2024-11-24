@@ -1,6 +1,6 @@
 <div align="center">
 
-# Coin Tracker
+# Coin Tracker 
 <br />
 <img height="200" src="./readme/logo.png" />
 <br />
